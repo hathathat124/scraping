@@ -8,12 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scraping.Interfaces
+namespace Scraping.Interfaces.IProcess
 {
-    public interface IScrapingProcess
+    public interface IMakroScrapingProcess
     {
         void SettingWebDriver(ChromeDriver webDriver);
         Task<ReadOnlyCollection<IWebElement>> FindElement(string keyword);
-        Task<MakroDataModel> RetrieveData(ReadOnlyCollection<IWebElement> dataelement ,MakroDataModel datamodel);
+        Task<MakroDataModel> RetrieveData(ReadOnlyCollection<IWebElement> dataelement, MakroDataModel datamodel);        
     }
 }

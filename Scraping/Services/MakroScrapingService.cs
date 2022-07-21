@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Scraping.Interfaces;
+using Scraping.Interfaces.IProcess;
 using Scraping.Models;
 using Scraping.Process;
 using System;
@@ -15,13 +16,15 @@ using static Scraping.Models.Common;
 
 namespace Scraping.Services
 {
-    public class MakroScrapingService : IScrapingService
+    public class ScrapingService : IScrapingService
     {
-        private readonly IScrapingProcess _scrapingProcess;
+        private readonly IMakroScrapingProcess _makroScrapingProcess;
+        private readonly IShoppeeScrapingProcess _shoppeeScrapingProcess;
 
-        public MakroScrapingService(IScrapingProcess scrapingprocess)
+        public ScrapingService(IMakroScrapingProcess makroScrapingProcess , IShoppeeScrapingProcess shoppeeScrapingProcess)
         {
-            _scrapingProcess = scrapingprocess;
+            _makroScrapingProcess = makroScrapingProcess;
+            _shoppeeScrapingProcess = shoppeeScrapingProcess;
         }
 
         public async Task<MakroDataModel> Makro(List<string> keywords)
@@ -30,12 +33,12 @@ namespace Scraping.Services
             try
             {
                 using var webDriver = new ChromeDriver();
-                _scrapingProcess.SettingWebDriver(webDriver);
+                _makroScrapingProcess.SettingWebDriver(webDriver);
 
                 foreach (var item in keywords)
                 {
-                    var dataElement = await _scrapingProcess.FindElement(item);
-                    dataModel = await _scrapingProcess.RetrieveData(dataElement, dataModel);
+                    var dataElement = await _makroScrapingProcess.FindElement(item);
+                    dataModel = await _makroScrapingProcess.RetrieveData(dataElement, dataModel);
                 }
 
             }
@@ -44,9 +47,25 @@ namespace Scraping.Services
             return dataModel;
         }
 
-        public Task<MakroDataModel> Shoppee(List<string> keywords)
+        public async Task<MakroDataModel> Shoppee(List<string> keywords)
         {
-            throw new NotImplementedException();
+            MakroDataModel dataModel = new MakroDataModel();
+            try
+            {
+                using var webDriver = new ChromeDriver();
+                _shoppeeScrapingProcess.SettingWebDriver(webDriver);
+
+                foreach (var item in keywords)
+                {
+                    var dataElement = await _shoppeeScrapingProcess.FindElement(item);
+                    dataModel = await _shoppeeScrapingProcess.RetrieveData(dataElement, dataModel);
+                }
+
+            }
+            catch (Exception ex)
+            {
+            }
+            return dataModel;
         }
     }    
 }

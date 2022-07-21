@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
+using Scraping.Interfaces;
 using Scraping.Interfaces.IProcess;
 using Scraping.Models;
 using System;
@@ -16,7 +17,7 @@ using static Scraping.Models.MakroDataModel;
 
 namespace Scraping.Process
 {
-    public class MakroScrapingProcess : IMakroScrapingProcess
+    public class ShoppeeScrapingProcess : IShoppeeScrapingProcess
     {
         private IWebDriver _webDriver;
         public void SettingWebDriver(ChromeDriver webDriver)

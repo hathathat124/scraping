@@ -10,18 +10,18 @@ namespace ScrapingAPI.Controllers
 {
     [ApiController]
 
-    public class WeatherForecastController : ControllerBase
+    public class ScrapingController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<ScrapingController> _logger;
         private readonly IScrapingService _scrapingService;
 
         
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IScrapingService scrapingService)
+        public ScrapingController(ILogger<ScrapingController> logger, IScrapingService scrapingService)
         {
             _scrapingService = scrapingService;
             _logger = logger;
@@ -42,5 +42,16 @@ namespace ScrapingAPI.Controllers
         {
             return "Success";
         }
+
+        [HttpGet]
+        [Route("scraping/v1/shoppeescraping")]
+        public async Task<MakroDataModel> ShoppeeScraping()
+        {
+            var dataRequest = new List<string>() { "πÈ”Õ—¥≈¡" };
+            var dataResponse = await _scrapingService.Makro(dataRequest);
+
+            return dataResponse;
+        }
+    
     }
 }

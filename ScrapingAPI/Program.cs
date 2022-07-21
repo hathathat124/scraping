@@ -1,4 +1,5 @@
 using Scraping.Interfaces;
+using Scraping.Interfaces.IProcess;
 using Scraping.Process;
 using Scraping.Services;
 
@@ -10,8 +11,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IScrapingProcess, MakroScrapingProcess>();
-builder.Services.AddScoped<IScrapingService, MakroScrapingService>();
+builder.Services.AddScoped<IMakroScrapingProcess, MakroScrapingProcess>();
+builder.Services.AddScoped<IShoppeeScrapingProcess, ShoppeeScrapingProcess>();
+builder.Services.AddScoped<IScrapingService, ScrapingService>();
 
 var app = builder.Build();
 
