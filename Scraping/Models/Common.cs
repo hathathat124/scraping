@@ -10,7 +10,7 @@ namespace Scraping.Models
     {
         public static class AppUrl
         {
-            public const string UrlShoppee = "https://shopee.co.th/";
+            public const string UrlShoppee = "https://shopee.co.th/search";
             public const string UrlMakro = "https://www.makroclick.com/th/campaign/fresh-weekly";
         }
     }

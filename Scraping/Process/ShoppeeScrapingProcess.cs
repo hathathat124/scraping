@@ -28,7 +28,7 @@ namespace Scraping.Process
 
         public async Task<ReadOnlyCollection<IWebElement>> FindElement(string keyword)
         {
-            _webDriver.Navigate().GoToUrl(AppUrl.UrlMakro);
+            _webDriver.Navigate().GoToUrl(AppUrl.UrlShoppee);
 
             string xpath = "/html/body/div[1]/div/div/div[1]/div[1]/div/div[2]/div/div/div[2]/div[1]/div/div/div[1]/div/div[1]/div/input";
             //ChromeDriver driver = new ChromeDriver();

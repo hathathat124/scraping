@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Scraping.Models
 {
-    public class MakroDataModel : BaseResponse
+    public class ShoppeeDataModel : BaseResponse
     {
         public List<ProductDetail> data { get; set; } = new List<ProductDetail>();
 

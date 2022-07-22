@@ -20,7 +20,8 @@ namespace Scraping.Services
     {
         private readonly IMakroScrapingProcess _makroScrapingProcess;
         private readonly IShoppeeScrapingProcess _shoppeeScrapingProcess;
-
+        private bool isNextPage = true;
+        private int currentPage = 1;
         public ScrapingService(IMakroScrapingProcess makroScrapingProcess , IShoppeeScrapingProcess shoppeeScrapingProcess)
         {
             _makroScrapingProcess = makroScrapingProcess;
@@ -37,8 +38,15 @@ namespace Scraping.Services
 
                 foreach (var item in keywords)
                 {
-                    var dataElement = await _makroScrapingProcess.FindElement(item);
-                    dataModel = await _makroScrapingProcess.RetrieveData(dataElement, dataModel);
+                    await _makroScrapingProcess.InputKeyword(item);
+                    while (isNextPage)
+                    {
+                        var dataElement = await _makroScrapingProcess.FindElement();
+                        var dataListofPage = await _makroScrapingProcess.RetrieveData(dataElement);
+                        
+                        dataModel.data.AddRange(dataListofPage);
+                        isNextPage = _makroScrapingProcess.NextPage(ref currentPage);
+                    }                    
                 }
 
             }
@@ -49,7 +57,7 @@ namespace Scraping.Services
 
         public async Task<MakroDataModel> Shoppee(List<string> keywords)
         {
-            MakroDataModel dataModel = new MakroDataModel();
+            ShoppeeDataModel dataModel = new ShoppeeDataModel();
             try
             {
                 using var webDriver = new ChromeDriver();
@@ -57,8 +65,15 @@ namespace Scraping.Services
 
                 foreach (var item in keywords)
                 {
-                    var dataElement = await _shoppeeScrapingProcess.FindElement(item);
-                    dataModel = await _shoppeeScrapingProcess.RetrieveData(dataElement, dataModel);
+                    await _shoppeeScrapingProcess.InputKeyword(item);
+                    while (isNextPage)
+                    {
+                        var dataElement = await _shoppeeScrapingProcess.FindElement();
+                        var dataListofPage = await _shoppeeScrapingProcess.RetrieveData(dataElement);
+
+                        dataModel.data.AddRange(dataListofPage);
+                        isNextPage = _shoppeeScrapingProcess.NextPage(ref currentPage);
+                    }
                 }
 
             }
@@ -67,5 +82,7 @@ namespace Scraping.Services
             }
             return dataModel;
         }
+
+
     }    
 }
