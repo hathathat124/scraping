@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium.Chrome;
 using Scraping;
 using Scraping.Interfaces;
@@ -20,7 +24,7 @@ namespace ScrapingAPI.Controllers
         private readonly ILogger<ScrapingController> _logger;
         private readonly IScrapingService _scrapingService;
 
-        
+
         public ScrapingController(ILogger<ScrapingController> logger, IScrapingService scrapingService)
         {
             _scrapingService = scrapingService;
@@ -31,11 +35,26 @@ namespace ScrapingAPI.Controllers
         [Route("scraping/v1/makroscraping")]
         public async Task<MakroDataModel> MakroScraping()
         {
-            var dataRequest = new List<string>() { "¹éÓÍÑ´ÅÁ" };
-            var dataResponse = await _scrapingService.Makro(dataRequest);
+            MakroDataModel dataResponse = new MakroDataModel();
+            try
+            {
+                System.Console.WriteLine("API!");
+                var dataRequest = new List<string>() { "à¸™à¹‰à¸³à¸­à¸±à¸”à¸¥à¸¡" };
+                dataResponse = await _scrapingService.Makro(dataRequest);
 
-            return dataResponse;
+                return dataResponse;
+            }
+            catch (Exception ex)
+            {
+                dataResponse.status = new Status
+                {
+                    code = "500",
+                    message = ex.Message
+                };
+                return dataResponse;
+            };
         }
+
         [HttpGet]
         [Route("scraping/v1/alive")]
         public string Alive()
@@ -47,11 +66,11 @@ namespace ScrapingAPI.Controllers
         [Route("scraping/v1/shoppeescraping")]
         public async Task<MakroDataModel> ShoppeeScraping()
         {
-            var dataRequest = new List<string>() { "¹éÓÍÑ´ÅÁ" };
+            var dataRequest = new List<string>() { "ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ï¿½" };
             var dataResponse = await _scrapingService.Makro(dataRequest);
 
             return dataResponse;
         }
-    
+
     }
 }

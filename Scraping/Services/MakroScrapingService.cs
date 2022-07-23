@@ -22,7 +22,7 @@ namespace Scraping.Services
         private readonly IShoppeeScrapingProcess _shoppeeScrapingProcess;
         private bool isNextPage = true;
         private int currentPage = 1;
-        public ScrapingService(IMakroScrapingProcess makroScrapingProcess , IShoppeeScrapingProcess shoppeeScrapingProcess)
+        public ScrapingService(IMakroScrapingProcess makroScrapingProcess, IShoppeeScrapingProcess shoppeeScrapingProcess)
         {
             _makroScrapingProcess = makroScrapingProcess;
             _shoppeeScrapingProcess = shoppeeScrapingProcess;
@@ -33,8 +33,10 @@ namespace Scraping.Services
             MakroDataModel dataModel = new MakroDataModel();
             try
             {
-                using var webDriver = new ChromeDriver();
-                _makroScrapingProcess.SettingWebDriver(webDriver);
+                System.Console.WriteLine("Lib!");
+
+                using var webDriver = _makroScrapingProcess.SettingWebDriver();
+
 
                 foreach (var item in keywords)
                 {
@@ -43,19 +45,20 @@ namespace Scraping.Services
                     {
                         var dataElement = await _makroScrapingProcess.FindElement();
                         var dataListofPage = await _makroScrapingProcess.RetrieveData(dataElement);
-                        
+
                         dataModel.data.AddRange(dataListofPage);
                         isNextPage = _makroScrapingProcess.NextPage(ref currentPage);
-                    }                    
+                    }
                 }
 
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
             }
             return dataModel;
         }
 
-        public async Task<MakroDataModel> Shoppee(List<string> keywords)
+        public async Task<ShoppeeDataModel> Shoppee(List<string> keywords)
         {
             ShoppeeDataModel dataModel = new ShoppeeDataModel();
             try
@@ -84,5 +87,5 @@ namespace Scraping.Services
         }
 
 
-    }    
+    }
 }

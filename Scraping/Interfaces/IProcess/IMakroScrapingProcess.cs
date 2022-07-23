@@ -13,7 +13,7 @@ namespace Scraping.Interfaces.IProcess
 {
     public interface IMakroScrapingProcess
     {
-        void SettingWebDriver(ChromeDriver webDriver);
+        IWebDriver SettingWebDriver();
         Task<ReadOnlyCollection<IWebElement>> FindElement();
         Task InputKeyword(string keyword);
         Task<List<ProductDetail>> RetrieveData(ReadOnlyCollection<IWebElement> dataelement);

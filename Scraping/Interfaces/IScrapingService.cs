@@ -10,7 +10,7 @@ namespace Scraping.Interfaces
     public interface IScrapingService
     {
         Task<MakroDataModel> Makro(List<string> keywords);
-        Task<MakroDataModel> Shoppee(List<string> keywords);
+        Task<ShoppeeDataModel> Shoppee(List<string> keywords);
 
     }
 }

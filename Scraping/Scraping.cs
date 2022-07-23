@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium.Chrome;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using OpenQA.Selenium.Chrome;
 using Scraping.Interfaces;
 using Scraping.Models;
 using Scraping.Services;
@@ -12,8 +15,9 @@ namespace Scraping
 
         private readonly IScrapingService _scrapingService;
 
-        public ScrapingSite(IScrapingService scrapingService) { 
-            _scrapingService = scrapingService;        
+        public ScrapingSite(IScrapingService scrapingService)
+        {
+            _scrapingService = scrapingService;
         }
 
         public async Task<MakroDataModel> GetMakroData(List<string> keywords)
@@ -21,9 +25,10 @@ namespace Scraping
             MakroDataModel data = new MakroDataModel();
             try
             {
-                data = await _scrapingService.Makro(keywords);             
+                data = await _scrapingService.Makro(keywords);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 data.status.code = "500";
                 data.status.message = ex.Message;
             }
@@ -32,7 +37,7 @@ namespace Scraping
 
         public async Task<object> ShoppeeScraping(List<string> keywords)
         {
-            MakroDataModel data = new MakroDataModel();
+            ShoppeeDataModel data = new ShoppeeDataModel();
             try
             {
                 data = await _scrapingService.Shoppee(keywords);
