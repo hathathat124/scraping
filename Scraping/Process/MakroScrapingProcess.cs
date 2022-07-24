@@ -24,8 +24,8 @@ namespace Scraping.Process
         public IWebDriver SettingWebDriver()
         {
 
-            string binEnvironment = Path.Combine(Environment.GetEnvironmentVariable("GOOGLE_CHROME_BIN")) ?? "";
-            string chromeDriverEnvironment = Path.Combine(Environment.GetEnvironmentVariable("CHROMEDRIVER_PATH")) ?? "";
+            string binEnvironment = Environment.GetEnvironmentVariable("GOOGLE_CHROME_BIN") ?? "";
+            string chromeDriverEnvironment = Environment.GetEnvironmentVariable("CHROMEDRIVER_PATH") ?? "";
             //string binEnvironment = "/app/.apt/usr/bin/google-chrome";
             //string chromeDriverEnvironment = "/app/.chromedriver/bin/chromedriver";
             //string chromeDriverEnvironment = "";
@@ -45,7 +45,8 @@ namespace Scraping.Process
             Console.WriteLine("Setting Start");
 
 
-            _webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
+            //_webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
+            _webDriver = new ChromeDriver(setting);
             _webDriver.Manage().Window.Size = new Size(1920, 1080);
 
 
