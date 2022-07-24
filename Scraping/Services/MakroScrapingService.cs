@@ -54,6 +54,13 @@ namespace Scraping.Services
             }
             catch (Exception ex)
             {
+                dataModel.status = new Status
+                {
+                    code = "500",
+                    message = ex.Message
+
+                };
+                Console.WriteLine(ex.Message);
             }
             return dataModel;
         }

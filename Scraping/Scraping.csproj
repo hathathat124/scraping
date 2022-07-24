@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <!-- <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable> -->
+    <PublishChromeDriver>true</PublishChromeDriver>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
