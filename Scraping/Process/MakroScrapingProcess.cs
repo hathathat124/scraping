@@ -65,9 +65,10 @@ namespace Scraping.Process
         public async Task InputKeyword(string keyword)
         {
             Console.WriteLine("InputKeyword");
-            Console.WriteLine("Html: "+ _webDriver.FindElement(By.XPath("/html/body")));
+            Console.WriteLine("Html: "+ _webDriver.FindElement(By.XPath("/html/body")).Text);
 
             _webDriver.Navigate().GoToUrl(AppUrl.UrlMakro);
+            Console.WriteLine("Html: "+ _webDriver.FindElement(By.XPath("/html/body")).Text);
             Console.WriteLine("GoToUrl");
             string xpathInput = "/html/body/div[1]/div/div/div[1]/div[1]/div/div[2]/div/div/div[2]/div[1]/div/div/div[1]/div/div[1]/div/input";
             //ChromeDriver driver = new ChromeDriver();
