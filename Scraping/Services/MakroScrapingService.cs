@@ -47,7 +47,9 @@ namespace Scraping.Services
                         var dataListofPage = await _makroScrapingProcess.RetrieveData(dataElement);
 
                         dataModel.data.AddRange(dataListofPage);
+                        Console.WriteLine("dataModel AddRange success");
                         isNextPage = _makroScrapingProcess.NextPage(ref currentPage);
+                        Console.WriteLine("NextPage Success");
                     }
                 }
 
@@ -61,6 +63,9 @@ namespace Scraping.Services
 
                 };
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException.Data);
+                Console.WriteLine(ex.InnerException.Source);
+                Console.WriteLine(ex.InnerException.Message);
             }
             return dataModel;
         }

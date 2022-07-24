@@ -84,7 +84,7 @@ namespace Scraping.Process
         public async Task<ReadOnlyCollection<IWebElement>> FindElement()
         {
             await _webDriver.ScrollPage();
-
+            Console.WriteLine("ScrollPage");
             string xpathGetValue = "//*[@id=\"scrollPaginatorTop\"]/div[2]/div/div";
             Console.WriteLine("Element value search");
 
@@ -95,6 +95,8 @@ namespace Scraping.Process
         public async Task<List<ProductDetail>> RetrieveData(ReadOnlyCollection<IWebElement> dataelement)
         {
             List<ProductDetail> dataList = new List<ProductDetail>();
+            Console.WriteLine("Section Retrievedata");
+
             dataList = dataelement.Select(item => new ProductDetail
             {
                 ProductName = item.FindElement(By.XPath("div/div/div/a/div")).Text,// name product
@@ -102,6 +104,7 @@ namespace Scraping.Process
                 Price = item.FindElement(By.XPath("div/div/div/div[2]/div[1]/div[2]")).Text, // price              
                 ProductPerPrice = item.FindElement(By.XPath("div/div/div/div[3]/div")).Text, // price       
             }).ToList();
+            Console.WriteLine("Section Retrievedata Success");
             return dataList;
         }
 
