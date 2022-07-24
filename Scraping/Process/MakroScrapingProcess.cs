@@ -13,6 +13,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 using static Scraping.Models.Common;
 using static Scraping.Models.MakroDataModel;
 
@@ -33,6 +35,8 @@ namespace Scraping.Process
             Console.WriteLine("chromeDriverEnvironment: " + chromeDriverEnvironment);
             Console.WriteLine("binEnvironment: " + binEnvironment);
 
+            new DriverManager().SetUpDriver(new ChromeConfig());
+
             var setting = new ChromeOptions
             {
                 //BinaryLocation = @"/app/.apt/usr/bin/google-chrome",
@@ -42,6 +46,7 @@ namespace Scraping.Process
             setting.AddArgument("--headless");
             setting.AddArgument("--disable-gpu");
             setting.AddArgument("--no-sandbox");
+            setting.AddArgument("--disable-dev-shm-usage");
             Console.WriteLine("Setting Start");
 
 
@@ -51,8 +56,7 @@ namespace Scraping.Process
 
 
 
-            Console.WriteLine("new ChromeDriver Finish");
-            _webDriver.Manage().Window.Size = new Size(1920, 1080);
+            Console.WriteLine("new ChromeDriver Finish");            
             Console.WriteLine("Setting Finish");
 
             return _webDriver;
@@ -60,6 +64,7 @@ namespace Scraping.Process
 
         public async Task InputKeyword(string keyword)
         {
+            Console.WriteLine("InputKeyword");
 
             _webDriver.Navigate().GoToUrl(AppUrl.UrlMakro);
             Console.WriteLine("GoToUrl");
