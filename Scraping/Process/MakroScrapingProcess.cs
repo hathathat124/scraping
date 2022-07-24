@@ -42,17 +42,19 @@ namespace Scraping.Process
                 BinaryLocation = binEnvironment
                 //DebuggerAddress = "127.0.0.1:9222"
             };
-            //setting.AddArgument("--headless");
+            setting.AddArgument("--headless");
             //setting.AddArgument("--disable-gpu");
-            //setting.AddArgument("--no-sandbox");
-            setting.AddArgument("window-size=1920x1080");
+            setting.AddArgument("--no-sandbox");
+            setting.AddArgument("--window-size=1920,1080");
+                                
             setting.AddArgument("--disable-dev-shm-usage");
             Console.WriteLine("Setting Start");
-
-            var test = new DriverManager().SetUpDriver(new ChromeConfig());
-            Console.WriteLine("Test : "+test);
+            var t = new DriverManager().SetUpDriver(new ChromeConfig());
+            t = t.Replace("chromedriver.exe", "");
+            //string[] test = new Directory().GetDirectories(t).ToList();
+            Console.WriteLine("Test : "+t);
             //_webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
-            _webDriver = new ChromeDriver(test ,setting);
+            _webDriver = new ChromeDriver(t ,setting);
    
 
 
@@ -66,10 +68,10 @@ namespace Scraping.Process
         public async Task InputKeyword(string keyword)
         {
             Console.WriteLine("InputKeyword");
-            Console.WriteLine("Html: "+ _webDriver.FindElement(By.XPath("/html/body")).Text);
+            //Console.WriteLine("Html: "+ _webDriver.FindElement(By.XPath("/html/body")).Text);
 
             _webDriver.Navigate().GoToUrl(AppUrl.UrlMakro);
-            Console.WriteLine("Html: "+ _webDriver.FindElement(By.XPath("/html/body")).Text);
+            //Console.WriteLine("Html: "+ _webDriver.FindElement(By.XPath("/html/body")).Text);
             Console.WriteLine("GoToUrl");
             string xpathInput = "/html/body/div[1]/div/div/div[1]/div[1]/div/div[2]/div/div/div[2]/div[1]/div/div/div[1]/div/div[1]/div/input";
             //ChromeDriver driver = new ChromeDriver();
