@@ -56,6 +56,11 @@ namespace Scraping.Process
             //Console.WriteLine("Test : " + t);
             //_webDriver = new ChromeDriver(t, setting);
 
+            //var t = new DriverManager().SetUpDriver(new ChromeConfig());
+            //t = t.Replace("chromedriver", "");
+            //Console.WriteLine("Test : " + t);
+            //_webDriver = new ChromeDriver(t, setting);
+
             _webDriver = new ChromeDriver(setting);
 
 
@@ -93,9 +98,9 @@ namespace Scraping.Process
             await _webDriver.ScrollPage();
             Console.WriteLine("ScrollPage");
             string xpathGetValue = "//*[@id=\"scrollPaginatorTop\"]/div[2]/div/div";
-            Console.WriteLine("Element value search");
 
             var data = _webDriver.FindElements(By.XPath(xpathGetValue));
+            Console.WriteLine("Element value search: "+data.Count );
             return data;
         }
 
@@ -111,7 +116,7 @@ namespace Scraping.Process
                 Price = item.FindElement(By.XPath("div/div/div/div[2]/div[1]/div[2]")).Text, // price              
                 ProductPerPrice = item.FindElement(By.XPath("div/div/div/div[3]/div")).Text, // price       
             }).ToList();
-            Console.WriteLine("Section Retrievedata Success");
+            Console.WriteLine("Section Retrievedata Success:"+dataList.Count);
             return dataList;
         }
 
@@ -123,10 +128,16 @@ namespace Scraping.Process
                 var pageToGo = currentPage;
                 var classPageBTN = "//*[@class=\"pagination  px-1 mx-1 px-lg-2 py-lg-1 mx-1\"]";
                 var pageElement = _webDriver.FindElements(By.XPath(classPageBTN));
+                Console.WriteLine("currentPage :"+currentPage);
 
+                foreach (var item in pageElement)
+                { 
+                    Console.WriteLine("loop pageClickElement :" + item.Text);
 
+                }
                 var pageClickElement = pageElement.Where(w => Convert.ToInt32(w.Text) == pageToGo).First();
-              
+                Console.WriteLine("pageClickElement :" + pageClickElement.Text);
+
                 pageClickElement.Click();
 
                 return true;
