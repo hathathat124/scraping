@@ -32,7 +32,7 @@ namespace ScrapingAPI.Controllers
         }
 
         [HttpGet]
-        [Route("scraping/v1/makroscraping")]
+        [Route("scraping/v1/makroscraping")] 
         public async Task<MakroDataModel> MakroScraping()
         {
             MakroDataModel dataResponse = new MakroDataModel();
