@@ -144,6 +144,7 @@ namespace Scraping.Process
             }
             catch (Exception ex)
             {
+                Console.WriteLine("pageClickElement Exception ex:" + ex.Message);
                 return false;
             }
 
