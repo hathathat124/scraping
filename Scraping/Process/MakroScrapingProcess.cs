@@ -35,7 +35,6 @@ namespace Scraping.Process
             Console.WriteLine("chromeDriverEnvironment: " + chromeDriverEnvironment);
             Console.WriteLine("binEnvironment: " + binEnvironment);
 
-            new DriverManager().SetUpDriver(new ChromeConfig());
 
             var setting = new ChromeOptions
             {
@@ -47,12 +46,13 @@ namespace Scraping.Process
             //setting.AddArgument("--disable-gpu");
             //setting.AddArgument("--no-sandbox");
             setting.AddArgument("window-size=1920x1080");
-            //setting.AddArgument("--disable-dev-shm-usage");
+            setting.AddArgument("--disable-dev-shm-usage");
             Console.WriteLine("Setting Start");
 
-
+            var test = new DriverManager().SetUpDriver(new ChromeConfig());
+            Console.WriteLine("Test : "+test);
             //_webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
-            _webDriver = new ChromeDriver(setting);
+            _webDriver = new ChromeDriver(test ,setting);
    
 
 
