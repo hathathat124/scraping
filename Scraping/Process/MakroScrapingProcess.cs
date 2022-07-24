@@ -65,6 +65,7 @@ namespace Scraping.Process
         public async Task InputKeyword(string keyword)
         {
             Console.WriteLine("InputKeyword");
+            Console.WriteLine("Html: "+ _webDriver.FindElement(By.ClassName("/html/body")));
 
             _webDriver.Navigate().GoToUrl(AppUrl.UrlMakro);
             Console.WriteLine("GoToUrl");
