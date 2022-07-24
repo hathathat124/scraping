@@ -54,8 +54,10 @@ namespace Scraping.Process
             //string[] test = new Directory().GetDirectories(t).ToList();
             Console.WriteLine("Test : "+t);
             //_webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
-            _webDriver = new ChromeDriver(t ,setting);
-   
+            //_webDriver = new ChromeDriver(t ,setting);
+            _webDriver = new ChromeDriver(setting);
+
+
 
 
 
