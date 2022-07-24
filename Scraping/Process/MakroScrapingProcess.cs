@@ -123,7 +123,8 @@ namespace Scraping.Process
                 var pageElement = _webDriver.FindElements(By.XPath(classPageBTN));
                 Console.WriteLine("pagelement: " + pageElement.Count + " currentpage: " + currentPage);
 
-                var pageClickElement = pageElement.Where(w => Convert.ToInt16(w.Text) == pageToGo).First();
+                var pageClickElement = pageElement.Where(w => Convert.ToInt32(w.Text) == pageToGo).First();
+                Console.WriteLine("pageClickElement: " + pageClickElement.TagName);
 
                 pageClickElement.Click();
 
