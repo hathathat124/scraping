@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Interactions;
 using Scraping.Interfaces.IProcess;
 using Scraping.Models;
 using System;
@@ -138,7 +139,11 @@ namespace Scraping.Process
                 var pageClickElement = pageElement.Where(w => Convert.ToInt32(w.Text) == pageToGo).First();
                 Console.WriteLine("pageClickElement :" + pageClickElement.Text);
 
-                pageClickElement.Click();
+              
+                Actions actions = new Actions(_webDriver);
+
+                actions.MoveToElement(pageClickElement).Click().Perform();
+                //pageClickElement.Click();
 
                 return true;
             }
