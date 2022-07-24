@@ -121,7 +121,7 @@ namespace Scraping.Process
                 var pageToGo = currentPage;
                 var classPageBTN = "//*[@class=\"pagination  px-1 mx-1 px-lg-2 py-lg-1 mx-1\"]";
                 var pageElement = _webDriver.FindElements(By.XPath(classPageBTN));
-
+                Console.WriteLine("pagelement: " + pageElement.Count + " currentpage: " + currentPage);
 
                 var pageClickElement = pageElement.Where(w => Convert.ToInt16(w.Text) == pageToGo).First();
 
@@ -131,6 +131,7 @@ namespace Scraping.Process
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
 

@@ -49,7 +49,7 @@ namespace Scraping.Services
                         dataModel.data.AddRange(dataListofPage);
                         Console.WriteLine("dataModel AddRange success");
                         isNextPage = _makroScrapingProcess.NextPage(ref currentPage);
-                        Console.WriteLine("NextPage Success");
+                        Console.WriteLine("NextPage Success : "+ isNextPage);
                     }
                 }
 
