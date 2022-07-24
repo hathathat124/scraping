@@ -50,7 +50,7 @@ namespace Scraping.Process
             setting.AddArgument("--disable-dev-shm-usage");
             Console.WriteLine("Setting Start");
             var t = new DriverManager().SetUpDriver(new ChromeConfig());
-            t = t.Replace("chromedriver.exe", "");
+            t = t.Replace("chromedriver", "");
             //string[] test = new Directory().GetDirectories(t).ToList();
             Console.WriteLine("Test : "+t);
             //_webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
