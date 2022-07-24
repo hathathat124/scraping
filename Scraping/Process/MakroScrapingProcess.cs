@@ -43,16 +43,17 @@ namespace Scraping.Process
                 BinaryLocation = binEnvironment
                 //DebuggerAddress = "127.0.0.1:9222"
             };
-            setting.AddArgument("--headless");
+            //setting.AddArgument("--headless");
             //setting.AddArgument("--disable-gpu");
-            setting.AddArgument("--no-sandbox");
+            //setting.AddArgument("--no-sandbox");
+            setting.AddArgument("window-size=1920x1080");
             //setting.AddArgument("--disable-dev-shm-usage");
             Console.WriteLine("Setting Start");
 
 
             //_webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
             _webDriver = new ChromeDriver(setting);
-            _webDriver.Manage().Window.Size = new Size(1920, 1080);
+   
 
 
 
