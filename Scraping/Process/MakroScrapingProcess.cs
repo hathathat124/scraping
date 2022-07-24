@@ -52,10 +52,10 @@ namespace Scraping.Process
             var t = new DriverManager().SetUpDriver(new ChromeConfig());
             t = t.Replace("chromedriver", "");
             //string[] test = new Directory().GetDirectories(t).ToList();
-            Console.WriteLine("Test : "+t);
+            Console.WriteLine("Test : "+ t);
             //_webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
-            //_webDriver = new ChromeDriver(t ,setting);
-            _webDriver = new ChromeDriver(setting);
+            _webDriver = new ChromeDriver(t, setting);
+            //_webDriver = new ChromeDriver(setting);
 
 
 
@@ -95,7 +95,7 @@ namespace Scraping.Process
             string xpathGetValue = "//*[@id=\"scrollPaginatorTop\"]/div[2]/div/div";
 
             var data = _webDriver.FindElements(By.XPath(xpathGetValue));
-            Console.WriteLine("Element value search" + data.Count);
+            Console.WriteLine("Element value search" + data.Count());
             return data;
         }
 
@@ -125,8 +125,8 @@ namespace Scraping.Process
                 var pageElement = _webDriver.FindElements(By.XPath(classPageBTN));
                 Console.WriteLine("pagelement: " + pageElement.Count + " currentpage: " + currentPage);
 
-                var pageClickElement = pageElement.Where(w => Convert.ToInt32(w.Text) == pageToGo).First();
-                Console.WriteLine("pageClickElement: " + pageClickElement.TagName);
+                var pageClickElement = pageElement.Where(w => Convert.ToInt16(w.Text) == pageToGo).First();
+                //Console.WriteLine("pageClickElement: " + pageClickElement.TagName);
 
                 pageClickElement.Click();
 
