@@ -43,25 +43,22 @@ namespace Scraping.Process
                 //DebuggerAddress = "127.0.0.1:9222"
             };
             setting.AddArgument("--headless");
-            //setting.AddArgument("--disable-gpu");
+            setting.AddArgument("--disable-gpu");
             setting.AddArgument("--no-sandbox");
             setting.AddArgument("--window-size=1920,1080");
-                                
             setting.AddArgument("--disable-dev-shm-usage");
             Console.WriteLine("Setting Start");
             var t = new DriverManager().SetUpDriver(new ChromeConfig());
-            t = t.Replace("chromedriver", "");
+            t = t.Replace("chromedriver.exe", "");
             //string[] test = new Directory().GetDirectories(t).ToList();
-            Console.WriteLine("Test : "+ t);
+            Console.WriteLine("Test : " + t);
             //_webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
             _webDriver = new ChromeDriver(t, setting);
-            //_webDriver = new ChromeDriver(setting);
 
 
 
 
-
-            Console.WriteLine("new ChromeDriver Finish");            
+            Console.WriteLine("new ChromeDriver Finish");
             Console.WriteLine("Setting Finish");
 
             return _webDriver;
@@ -93,16 +90,16 @@ namespace Scraping.Process
             await _webDriver.ScrollPage();
             Console.WriteLine("ScrollPage");
             string xpathGetValue = "//*[@id=\"scrollPaginatorTop\"]/div[2]/div/div";
+            Console.WriteLine("Element value search");
 
             var data = _webDriver.FindElements(By.XPath(xpathGetValue));
-            Console.WriteLine("Element value search" + data.Count());
             return data;
         }
 
         public async Task<List<ProductDetail>> RetrieveData(ReadOnlyCollection<IWebElement> dataelement)
         {
             List<ProductDetail> dataList = new List<ProductDetail>();
-            Console.WriteLine("Section Retrievedata" + dataelement.Count()); ;
+            Console.WriteLine("Section Retrievedata");
 
             dataList = dataelement.Select(item => new ProductDetail
             {
@@ -111,7 +108,7 @@ namespace Scraping.Process
                 Price = item.FindElement(By.XPath("div/div/div/div[2]/div[1]/div[2]")).Text, // price              
                 ProductPerPrice = item.FindElement(By.XPath("div/div/div/div[3]/div")).Text, // price       
             }).ToList();
-            Console.WriteLine("Section Retrievedata Success : "+ dataList.Count);
+            Console.WriteLine("Section Retrievedata Success");
             return dataList;
         }
 
@@ -123,18 +120,16 @@ namespace Scraping.Process
                 var pageToGo = currentPage;
                 var classPageBTN = "//*[@class=\"pagination  px-1 mx-1 px-lg-2 py-lg-1 mx-1\"]";
                 var pageElement = _webDriver.FindElements(By.XPath(classPageBTN));
-                Console.WriteLine("pagelement: " + pageElement.Count + " currentpage: " + currentPage);
 
-                var pageClickElement = pageElement.Where(w => Convert.ToInt16(w.Text) == pageToGo).First();
-                //Console.WriteLine("pageClickElement: " + pageClickElement.TagName);
 
+                var pageClickElement = pageElement.Where(w => Convert.ToInt32(w.Text) == pageToGo).First();
+              
                 pageClickElement.Click();
 
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
                 return false;
             }
 
