@@ -48,12 +48,15 @@ namespace Scraping.Process
             setting.AddArgument("--window-size=1920,1080");
             setting.AddArgument("--disable-dev-shm-usage");
             Console.WriteLine("Setting Start");
-            var t = new DriverManager().SetUpDriver(new ChromeConfig());
-            t = t.Replace("chromedriver.exe", "");
-            //string[] test = new Directory().GetDirectories(t).ToList();
-            Console.WriteLine("Test : " + t);
-            //_webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
-            _webDriver = new ChromeDriver(t, setting);
+
+
+
+            //var t = new DriverManager().SetUpDriver(new ChromeConfig());
+            //t = t.Replace("chromedriver.exe", "");
+            //Console.WriteLine("Test : " + t);
+            //_webDriver = new ChromeDriver(t, setting);
+
+            _webDriver = new ChromeDriver(setting);
 
 
 
