@@ -23,75 +23,36 @@ namespace Scraping.Process
         private IWebDriver _webDriver;
         public IWebDriver SettingWebDriver()
         {
-            try
-            {
-                string binEnvironment = Path.Combine(Environment.GetEnvironmentVariable("GOOGLE_CHROME_BIN")) ?? "";
-                string chromeDriverEnvironment = Path.Combine(Environment.GetEnvironmentVariable("CHROMEDRIVER_PATH")) ?? "";
-                //string binEnvironment = "/app/.apt/usr/bin/google-chrome";
-                //string chromeDriverEnvironment = "/app/.chromedriver/bin/chromedriver";
-                //string chromeDriverEnvironment = "";
 
-                Console.WriteLine("chromeDriverEnvironment: " + chromeDriverEnvironment);
-                Console.WriteLine("binEnvironment: " + binEnvironment);
-
-                var setting = new ChromeOptions
-                {
-                    //BinaryLocation = @"/app/.apt/usr/bin/google-chrome",
-                    BinaryLocation = binEnvironment
-                    //DebuggerAddress = "127.0.0.1:9222"
-                };
-
-
-                setting.AddArgument("--headless");
-                setting.AddArgument("--disable-gpu");
-                setting.AddArgument("--no-sandbox");
-                Console.WriteLine("Setting Start");
-
-
-                _webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
-
-                Console.WriteLine("new ChromeDriver Finish");
-                _webDriver.Manage().Window.Size = new Size(1920, 1080);
-                Console.WriteLine("Setting Finish");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error1 : " + ex.Message);
-
-
-            }
-
-            Console.WriteLine("Error2");
-
-            string binEnvironment2 = Path.Combine(Environment.GetEnvironmentVariable("GOOGLE_CHROME_BIN")) ?? "";
-            string chromeDriverEnvironment2 = Path.Combine(Environment.GetEnvironmentVariable("CHROMEDRIVER_PATH")) ?? "";
+            string binEnvironment = Path.Combine(Environment.GetEnvironmentVariable("GOOGLE_CHROME_BIN")) ?? "";
+            string chromeDriverEnvironment = Path.Combine(Environment.GetEnvironmentVariable("CHROMEDRIVER_PATH")) ?? "";
             //string binEnvironment = "/app/.apt/usr/bin/google-chrome";
             //string chromeDriverEnvironment = "/app/.chromedriver/bin/chromedriver";
             //string chromeDriverEnvironment = "";
 
-            Console.WriteLine("chromeDriverEnvironment: " + chromeDriverEnvironment2);
-            Console.WriteLine("binEnvironment: " + binEnvironment2);
+            Console.WriteLine("chromeDriverEnvironment: " + chromeDriverEnvironment);
+            Console.WriteLine("binEnvironment: " + binEnvironment);
 
-            var setting2 = new ChromeOptions
+            var setting = new ChromeOptions
             {
                 //BinaryLocation = @"/app/.apt/usr/bin/google-chrome",
-                BinaryLocation = binEnvironment2
+                BinaryLocation = binEnvironment
                 //DebuggerAddress = "127.0.0.1:9222"
             };
-
-
-            setting2.AddArgument("--headless");
-            setting2.AddArgument("--disable-gpu");
-            setting2.AddArgument("--no-sandbox");
+            setting.AddArgument("--headless");
+            setting.AddArgument("--disable-gpu");
+            setting.AddArgument("--no-sandbox");
             Console.WriteLine("Setting Start");
 
 
-            _webDriver = new ChromeDriver(setting2);
+            _webDriver = new ChromeDriver(chromeDriverEnvironment, setting);
+            _webDriver.Manage().Window.Size = new Size(1920, 1080);
+
+
 
             Console.WriteLine("new ChromeDriver Finish");
             _webDriver.Manage().Window.Size = new Size(1920, 1080);
             Console.WriteLine("Setting Finish");
-
 
             return _webDriver;
         }
