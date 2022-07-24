@@ -44,9 +44,9 @@ namespace Scraping.Process
                 //DebuggerAddress = "127.0.0.1:9222"
             };
             setting.AddArgument("--headless");
-            setting.AddArgument("--disable-gpu");
+            //setting.AddArgument("--disable-gpu");
             setting.AddArgument("--no-sandbox");
-            setting.AddArgument("--disable-dev-shm-usage");
+            //setting.AddArgument("--disable-dev-shm-usage");
             Console.WriteLine("Setting Start");
 
 
